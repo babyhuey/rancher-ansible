@@ -7,7 +7,7 @@
 
 Host bastion_host
   User USER
-  Port 2222
+  Port 22
   HostName bastion_hostname_or_ip
   IdentityFile PATH_TO_YOUR_PRIVATE_KEY
   ForwardAgent yes

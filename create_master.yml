@@ -19,6 +19,7 @@
         CATTLE_DB_CATTLE_MYSQL_NAME={{ mysql_database }}
         CATTLE_DB_CATTLE_USERNAME={{ mysql_user }}
         CATTLE_DB_CATTLE_PASSWORD={{ mysql_password }}
+      links: "mysql:rancherServer"
     become: yes
 
   - name: Install rancher-compose

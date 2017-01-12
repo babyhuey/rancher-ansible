@@ -20,7 +20,7 @@
 - name: Register host into the master
   docker:
       name: rancherAgent
-      image: rancher/agent:v1.0.2
+      image: rancher/agent:latest
       state: started
       privileged: true
       volumes:
@@ -39,7 +39,7 @@
 - name: Register host into the master
   docker:
       name: rancherAgent
-      image: rancher/agent:v1.0.2
+      image: rancher/agent:latest
       state: started
       privileged: true
       volumes:

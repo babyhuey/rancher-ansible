@@ -1,28 +1,26 @@
 ---
+- name: install pip
+  yum:
+    name: python-pip
+    state: latest
+
 - name: Install docker-py
   pip: name=docker-py version="{{dockerpy_version}}"
   become: yes
 
-- name: Add docker apt repo
-  apt_repository:
-    repo: 'deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main'
-    mode: 644
-    state: present
-  become: yes
-
-
-- name: Import the Docker repository key
-  apt_key:
-    url: https://apt.dockerproject.org/gpg
-    id: 2C52609D
-    state: present
-  become: yes
+- name: Add yum repo
+  yum_repository:
+    name: docker
+    description: docker repo
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    gpgkey: https://yum.dockerproject.org/gpg
+    gpgcheck: yes
+    enabled: yes
 
 - name: Install Docker package
-  apt:
-    name: "{{ docker_package_name }}={{ docker_version }}"
+  yum:
+    name: docker-engine
     update_cache: yes
-    force: yes
   become: yes
   notify: Restart docker
 

@@ -20,3 +20,5 @@
 config_ssh
 
 *.retry
+.idea
+hosts

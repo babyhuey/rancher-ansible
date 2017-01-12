@@ -12,6 +12,6 @@
 - hosts: rancher-masters
   gather_facts: no
   roles:
-  - {role: install-stack, STACK_NAME: janitor, tags: install-stack}
-  - {role: install-stack, STACK_NAME: elk, tags: install-stack}
-  - {role: install-stack, STACK_NAME: prometheus, tags: install-stack}
+#  - {role: install-stack, STACK_NAME: janitor, tags: install-stack}
+#  - {role: install-stack, STACK_NAME: elk, tags: install-stack}
+#  - {role: install-stack, STACK_NAME: prometheus, tags: install-stack}

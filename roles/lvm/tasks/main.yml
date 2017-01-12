@@ -1,6 +1,6 @@
 ---
 - name: Ensure lvm required packages are installed
-  apt: pkg={{ item }} state=latest cache_valid_time=86400 update_cache=yes
+  yum: pkg={{ item }} state=latest
   with_items:
     - lvm2
     - parted
