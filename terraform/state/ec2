@@ -1,0 +1,4497 @@
+resource "aws_instance" "app-07-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b095cbf6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.130.220"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "app-07.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-09-dev" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.137"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "app-09.dev"
+    }
+}
+
+resource "aws_instance" "Openvpn" {
+    ami                         = "ami-b73b63a0"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5", "sg-0a980e77"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.6"
+
+    root_block_device {
+        volume_type           = "gp2"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "Openvpn"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "ldp-02-ec2-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.170"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "ldp-02.ec2.segmint.net"
+    }
+}
+
+resource "aws_instance" "host-seg2-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.8xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.60"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdc"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 500
+        delete_on_termination = true
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 1000
+        delete_on_termination = false
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 2048
+        delete_on_termination = false
+    }
+
+    tags {
+        "Taxable" = "Exempt"
+        "Environment" = "Greenplum-PROD"
+        "Name" = "host-seg2.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "host-seg3-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.8xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.61"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdc"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 500
+        delete_on_termination = true
+        iops                  = 3000
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 1000
+        delete_on_termination = false
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 2048
+        delete_on_termination = false
+    }
+
+    tags {
+        "Taxable" = "Exempt"
+        "Name" = "host-seg3.prod.segmint.net"
+        "Environment" = "Greenplum-PROD"
+    }
+}
+
+resource "aws_instance" "host-seg4-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.8xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.62"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 500
+        delete_on_termination = true
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdc"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 1000
+        delete_on_termination = false
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 2048
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Greenplum-PROD"
+        "Name" = "host-seg4.prod.segmint.net"
+        "Taxable" = "Exempt"
+    }
+}
+
+resource "aws_instance" "host-seg1-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.8xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.59"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 500
+        delete_on_termination = true
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdc"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "io1"
+        volume_size           = 1000
+        delete_on_termination = false
+        iops                  = 3000
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 2048
+        delete_on_termination = false
+    }
+
+    tags {
+        "Taxable" = "Exempt"
+        "Name" = "host-seg1.prod.segmint.net"
+        "Environment" = "Greenplum-PROD"
+    }
+}
+
+resource "aws_instance" "solr-01-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.119"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "solr-01.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "web-03-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b295cbf4"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.120.245"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "web-03.prod.segmint.net"
+        "Environment" = "Prod"
+    }
+}
+
+resource "aws_instance" "solr-01-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.208"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "solr-01.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "solr-02-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.100"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "solr-02.dev.segmint.net"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "zoo-03-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.146"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "zoo-03.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "app-09-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b095cbf6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.130.239"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "app-09.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "rundeck-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.168"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "rundeck.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "app-10-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.10"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "app-10.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-07-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-c75b76ec"
+    vpc_security_group_ids      = ["sg-5857a93e"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.30.19"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Integration"
+        "Name" = "app-07.int.segmint.net"
+    }
+}
+
+resource "aws_instance" "zoo-01-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.20"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "zoo-01.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "zk-01-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0f447b78"
+    vpc_security_group_ids      = ["sg-6394ee04"]
+    associate_public_ip_address = true
+    private_ip                  = "172.22.201.179"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "zk-01.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "kaf-03-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.42"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "kaf-03.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "dmz-03-demo-segmint-net" {
+    ami                         = "ami-c2a818aa"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0c42b227"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.50.117"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "dmz-03.demo.segmint.net"
+        "Taxable" = "Exempt"
+        "Environment" = "Demo"
+    }
+}
+
+resource "aws_instance" "sol-02-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-3c4d1d7a"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.40.18"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "sol-02.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "CloudFormer-Host" {
+    ami                         = "ami-69f41304"
+    availability_zone           = "us-east-1a"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = ""
+    subnet_id                   = "subnet-153af629"
+    vpc_security_group_ids      = ["sg-67dd1a1a"]
+    associate_public_ip_address = false
+    private_ip                  = "10.10.10.242"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = true
+    }
+
+    tags {
+        "aws:cloudformation:stack-name" = "CloudFormer"
+        "aws:cloudformation:stack-id" = "arn:aws:cloudformation:us-east-1:009751514221:stack/CloudFormer/9a8ecbe0-a056-11e6-ba81-500c219a98d2"
+        "Environment" = "DR"
+        "Name" = "CloudFormer-Host"
+        "aws:cloudformation:logical-id" = "WebServerCustomVPC"
+    }
+}
+
+resource "aws_instance" "solr-03-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.197"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "solr-03.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-10-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-91635fe5"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.135.209"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "app-10.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "dmz-04-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-815b76aa"
+    vpc_security_group_ids      = ["sg-6d57a90b"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.10.22"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "dmz-04.int.segmint.net"
+        "Environment" = "Integration"
+    }
+}
+
+resource "aws_instance" "visibility-01-segmint-net" {
+    ami                         = "ami-60b6c60a"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "m3.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = ""
+    vpc_security_group_ids      = ["sg-67c7c30d"]
+    associate_public_ip_address = true
+    private_ip                  = "10.183.58.70"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "visibility-01.segmint.net"
+    }
+}
+
+resource "aws_instance" "DR-Web-VPC" {
+    ami                         = "ami-f751799e"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.200"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 60
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "DR Web VPC"
+        "Environment" = "V2"
+    }
+}
+
+resource "aws_instance" "kafka-manager-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-6e66fc19"
+    vpc_security_group_ids      = ["sg-bdad21d9"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.31.46"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "kafka-manager.it.segmint.net"
+        "Environment" = "v5"
+    }
+}
+
+resource "aws_instance" "app-09-demo-segmint-net" {
+    ami                         = "ami-c2a818aa"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0c42b227"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.50.48"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Demo"
+        "Name" = "app-09.demo.segmint.net"
+        "Taxable" = "Exempt"
+    }
+}
+
+resource "aws_instance" "dmz-03-dev" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b5f32c9e"
+    vpc_security_group_ids      = ["sg-ddb111b9"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.10.32"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "dmz-03.dev"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "app-09-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.120"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "app-09.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "sftp-03-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-3b7b784c"
+    vpc_security_group_ids      = ["sg-8f85ffe8"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.100.158"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Greenplum-PROD"
+        "Name" = "sftp-03.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "rundeck-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.103"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "rundeck.dev.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "r-01-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.19"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "r-01.segmint.net"
+        "Environment" = "Analytics"
+    }
+}
+
+resource "aws_instance" "r-02-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.21"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Analytics"
+        "Name" = "r-02.segmint.net"
+    }
+}
+
+resource "aws_instance" "r-03-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.22"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "r-03.segmint.net"
+        "Environment" = "Analytics"
+    }
+}
+
+resource "aws_instance" "r-04-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.20"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "r-04.segmint.net"
+        "Environment" = "Analytics"
+    }
+}
+
+resource "aws_instance" "sol-01-demo-segmint-net" {
+    ami                         = "ami-c2a818aa"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0c42b227"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.50.254"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Taxable" = "Exempt"
+        "Environment" = "Demo"
+        "Name" = "sol-01.demo.segmint.net"
+    }
+}
+
+resource "aws_instance" "kaf-02-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.232"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "kaf-02.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "sol-01-qa-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1a"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-780d3a42"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = false
+    private_ip                  = "172.18.20.80"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "sol-01.qa.segmint.net"
+        "Environment" = "QA"
+    }
+}
+
+resource "aws_instance" "app-06-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-8e7506a6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.35.86"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "app-06.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "host-seg3-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.103"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdi"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Greenplum-DEV"
+        "Name" = "host-seg3.dev"
+    }
+}
+
+resource "aws_instance" "host-seg2-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.102"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdi"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "host-seg2.dev"
+        "Environment" = "Greenplum-DEV"
+    }
+}
+
+resource "aws_instance" "host-seg4-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.104"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdi"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "host-seg4.dev"
+        "Environment" = "Greenplum-DEV"
+    }
+}
+
+resource "aws_instance" "host-seg1-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.101"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdi"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Greenplum-DEV"
+        "Name" = "host-seg1.dev"
+    }
+}
+
+resource "aws_instance" "solr-02-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.208"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "solr-02.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "ads-01-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-c75b76ec"
+    vpc_security_group_ids      = ["sg-5857a93e"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.30.131"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ads-01.int.segmint.net"
+        "Environment" = "Integration"
+    }
+}
+
+resource "aws_instance" "app-05-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b095cbf6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.130.231"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "app-05.prod.segmint.net"
+        "Environment" = "Prod"
+    }
+}
+
+resource "aws_instance" "sol-01-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-c75b76ec"
+    vpc_security_group_ids      = ["sg-5857a93e"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.30.97"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Integration"
+        "Name" = "sol-01.int.segmint.net"
+    }
+}
+
+resource "aws_instance" "Analytics-Bastion" {
+    ami                         = "ami-224dc94a"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-69a00b42"
+    vpc_security_group_ids      = ["sg-08d0b16c"]
+    associate_public_ip_address = true
+    private_ip                  = "172.20.10.33"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Analytics"
+        "Name" = "Analytics Bastion"
+    }
+}
+
+resource "aws_instance" "etl-seg2-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = true
+    instance_type               = "m3.xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-0f447b78"
+    vpc_security_group_ids      = ["sg-62920505"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.201.129"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "etl-seg2.dev"
+        "Environment" = "Greenplum-DEV"
+    }
+}
+
+resource "aws_instance" "etl-seg1-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-0f447b78"
+    vpc_security_group_ids      = ["sg-62920505"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.201.128"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "etl-seg1.dev"
+        "Environment" = "Greenplum-DEV"
+    }
+}
+
+resource "aws_instance" "Rancher-Worker2" {
+    ami                         = "ami-b44436a3"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-b5f32c9e"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.10.129"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "Rancher Worker2"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "r-05-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.113"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "r-05.segmint.net"
+        "Environment" = "Analytics"
+    }
+}
+
+resource "aws_instance" "segmintone-ec2-new" {
+    ami                         = "ami-3ca94e51"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.135"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "gp2"
+        volume_size           = 60
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "V2"
+        "Name" = "segmintone.ec2.new"
+    }
+}
+
+resource "aws_instance" "dmz-03-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-815b76aa"
+    vpc_security_group_ids      = ["sg-6d57a90b"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.10.35"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "dmz-03.int.segmint.net"
+        "Environment" = "Integration"
+    }
+}
+
+resource "aws_instance" "ldp-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.132"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 250
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "ldp-01.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "Rancher-Worker" {
+    ami                         = "ami-b44436a3"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-b5f32c9e"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.10.142"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "Rancher Worker"
+    }
+}
+
+resource "aws_instance" "ads-02-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.191"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ads-02.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "app-05-dev" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-32f22d19"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.0.133"
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "app-05.dev"
+    }
+}
+
+resource "aws_instance" "dns-06-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-19693f5f"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = true
+    private_ip                  = "172.16.100.244"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "dns-06.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "dmz-03-qa-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-373b4540"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = false
+    private_ip                  = "172.18.100.235"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "QA"
+        "Name" = "dmz-03.qa.segmint.net"
+    }
+}
+
+resource "aws_instance" "secure-02-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-a89457d5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.206"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "secure-02.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "app-07-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.212"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "app-07.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "zoo-02-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.227"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "zoo-02.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "sol-01-dev" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.230"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "sol-01.dev"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "app-07-demo-segmint-net" {
+    ami                         = "ami-c2a818aa"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0c42b227"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.50.98"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "app-07.demo.segmint.net"
+        "Environment" = "Demo"
+        "Taxable" = "Exempt"
+    }
+}
+
+resource "aws_instance" "app-07-qa-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5904402e"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = false
+    private_ip                  = "172.18.30.39"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "QA"
+        "Name" = "app-07.qa.segmint.net"
+    }
+}
+
+resource "aws_instance" "gp-sne" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = true
+    instance_type               = "c4.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-87b328f0"
+    vpc_security_group_ids      = ["sg-bdad21d9"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.30.239"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Greenplum-DEV"
+        "Name" = "gp-sne"
+    }
+}
+
+resource "aws_instance" "Rancher-Worker" {
+    ami                         = "ami-9498d083"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-8ff32ca4"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.20.215"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = "snap-4b45c1c3"
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "aws:autoscaling:groupName" = "Rancher_Worker"
+        "Environment" = "Dev"
+        "Name" = "Rancher-Worker"
+    }
+}
+
+resource "aws_instance" "NAT-Prod" {
+    ami                         = "ami-d8699bb1"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-ef067487"
+    vpc_security_group_ids      = ["sg-d06f74bc"]
+    associate_public_ip_address = false
+    private_ip                  = "192.168.204.210"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "DR VPC"
+        "Name" = "NAT-Prod"
+    }
+}
+
+resource "aws_instance" "zk-02-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0f447b78"
+    vpc_security_group_ids      = ["sg-6394ee04"]
+    associate_public_ip_address = true
+    private_ip                  = "172.22.201.44"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "zk-02.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "docker-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.89"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "docker.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "web-03-stage-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "m1.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-897506a1"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.25.44"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "web-03.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "gp-master-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = true
+    instance_type               = "c4.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.249"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "gp-master.prod.segmint.net"
+        "Environment" = "Greenplum-PROD"
+        "Taxable" = "Exempt"
+    }
+}
+
+resource "aws_instance" "gp-fail-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = true
+    instance_type               = "c4.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-237b7854"
+    vpc_security_group_ids      = ["sg-8188f2e6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.200.250"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "gp-fail.prod.segmint.net"
+        "Taxable" = "Exempt"
+        "Environment" = "Greenplum-PROD"
+    }
+}
+
+resource "aws_instance" "bir-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.123"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 1024
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "bir-01.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "eset-it-segmint-net" {
+    ami                         = "ami-1df0ac78"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-ff2e9699"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.76"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "eset.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "r-06-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-c1a4c9b6"
+    vpc_security_group_ids      = ["sg-0dd8b969"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.30.233"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Analytics"
+        "Name" = "r-06.segmint.net"
+    }
+}
+
+resource "aws_instance" "IT-Bastion" {
+    ami                         = "ami-1ecae776"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.144"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 25
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "IT Bastion"
+    }
+}
+
+resource "aws_instance" "alf-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-14d2856c"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.40"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 200
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "alf-01.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-05-qa-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5904402e"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = false
+    private_ip                  = "172.18.30.128"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "QA"
+        "Name" = "app-05.qa.segmint.net"
+    }
+}
+
+resource "aws_instance" "ldap-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.173"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "ldap-01.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-08-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-8e7506a6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.35.123"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "app-08.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "gitlab-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.228"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "gitlab.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "inventory-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.102"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "inventory.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "gp-master-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.4xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.134"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "st1"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdh"
+        snapshot_id           = ""
+        volume_type           = "sc1"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "gp-master.dev"
+        "Environment" = "Greenplum-DEV"
+    }
+}
+
+resource "aws_instance" "gp-fail-dev" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "c3.xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-10447b67"
+    vpc_security_group_ids      = ["sg-36950251"]
+    associate_public_ip_address = false
+    private_ip                  = "172.22.200.135"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "gp2"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Greenplum-DEV"
+        "Name" = "gp-fail.dev"
+    }
+}
+
+resource "aws_instance" "sol-01-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-b095cbf6"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.130.9"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "sol-01.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-05-demo-segmint-net" {
+    ami                         = "ami-c2a818aa"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0c42b227"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.50.125"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "app-05.demo.segmint.net"
+        "Taxable" = "Exempt"
+        "Environment" = "Demo"
+    }
+}
+
+resource "aws_instance" "Dev-Bastion" {
+    ami                         = "ami-146e2a7c"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-32f22d19"
+    vpc_security_group_ids      = ["sg-c0b212a4"]
+    associate_public_ip_address = true
+    private_ip                  = "172.19.0.129"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 15
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "Dev Bastion"
+    }
+}
+
+resource "aws_instance" "app-07-dev" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.253"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "app-07.dev"
+    }
+}
+
+resource "aws_instance" "ads-02-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.104"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ads-02.prod.segmint.net"
+        "Environment" = "Prod"
+    }
+}
+
+resource "aws_instance" "kaf-01-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.92"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "kaf-01.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-06-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-91635fe5"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.135.202"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "app-06.prod.segmint.net"
+        "Environment" = "Prod"
+    }
+}
+
+resource "aws_instance" "dmz-03-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-a895cbee"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.110.191"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "dmz-03.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-lt-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.75"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Dev"
+        "Name" = "app-lt.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-08-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-91635fe5"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.135.244"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "app-08.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "NAT-Proxy-Server-PROD" {
+    ami                         = "ami-f619c29f"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = true
+    private_ip                  = "172.16.104.221"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "NAT/Proxy Server PROD"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "Nat-VPC-Replacement" {
+    ami                         = "ami-f619c29f"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = true
+    private_ip                  = "172.16.104.78"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "Nat VPC Replacement"
+    }
+}
+
+resource "aws_instance" "gitlab-dev-segmint-net" {
+    ami                         = "ami-1c221e76"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.183"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "gitlab.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "Monitor" {
+    ami                         = "ami-3d4ff254"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t1.micro"
+    monitoring                  = false
+    key_name                    = "monitor-segmint"
+    subnet_id                   = ""
+    vpc_security_group_ids      = ["sg-acf141c5"]
+    associate_public_ip_address = true
+    private_ip                  = "10.154.190.227"
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "Monitor"
+    }
+}
+
+resource "aws_instance" "ocsinventory2-ng-it-segmint-net" {
+    ami                         = "ami-1c221e76"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.60"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "ocsinventory2-ng.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "ads-01-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.124"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ads-01.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "DR-DB-VPC" {
+    ami                         = "ami-a73264ce"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m2.xlarge"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.21"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "DR DB VPC"
+        "Environment" = "V2"
+    }
+}
+
+resource "aws_instance" "foreman-it-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.10"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "foreman.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "sftp-02-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-3b7b784c"
+    vpc_security_group_ids      = ["sg-8f85ffe8"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.100.197"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "sftp-02.prod.segmint.net"
+        "Environment" = "Greenplum-PROD"
+    }
+}
+
+resource "aws_instance" "DNS-08" {
+    ami                         = "ami-b73b63a0"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.240"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "DNS-08"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "app-05-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-304d1d76"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.30.243"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "app-05.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "app-09-qa-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5904402e"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = false
+    private_ip                  = "172.18.30.248"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "QA"
+        "Name" = "app-09.qa.segmint.net"
+    }
+}
+
+resource "aws_instance" "sftp-01-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-3b7b784c"
+    vpc_security_group_ids      = ["sg-8f85ffe8"]
+    associate_public_ip_address = true
+    private_ip                  = "172.20.100.209"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Greenplum-PROD"
+        "Taxable" = "Exempt"
+        "Name" = "sftp-01.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "zk-03-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-0f447b78"
+    vpc_security_group_ids      = ["sg-6394ee04"]
+    associate_public_ip_address = true
+    private_ip                  = "172.22.201.78"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "zk-03.dev.segmint.net"
+    }
+}
+
+resource "aws_instance" "nexus-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = true
+    instance_type               = "m4.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = true
+    private_ip                  = "172.21.100.8"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 300
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdg"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 500
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "nexus-01.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "QA-Bastion" {
+    ami                         = "ami-1ecae776"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-373b4540"
+    vpc_security_group_ids      = ["sg-6beebe0f"]
+    associate_public_ip_address = true
+    private_ip                  = "172.18.100.80"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 20
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "QA Bastion"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "app-05-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-c75b76ec"
+    vpc_security_group_ids      = ["sg-5857a93e"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.30.246"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "app-05.int.segmint.net"
+        "Environment" = "Integration"
+    }
+}
+
+resource "aws_instance" "dmz-04-prod-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-a895cbee"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.110.216"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Prod"
+        "Name" = "dmz-04.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "dr-web-backup" {
+    ami                         = "ami-f751799e"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.237"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 60
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "v2"
+        "Name" = "dr web backup"
+    }
+}
+
+resource "aws_instance" "dmz-03-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-7b4d1d3d"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.10.41"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Stage"
+        "Name" = "dmz-03.stage.segmint.net"
+    }
+}
+
+resource "aws_instance" "etl-seg2-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-f7a1fbae"
+    vpc_security_group_ids      = ["sg-c885ffaf"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.201.59"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Greenplum-PROD"
+        "Taxable" = "Exempt"
+        "Name" = "etl-seg2.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "etl-seg1-prod-segmint-net" {
+    ami                         = "ami-bcba39d4"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-f7a1fbae"
+    vpc_security_group_ids      = ["sg-c885ffaf"]
+    associate_public_ip_address = false
+    private_ip                  = "172.20.201.58"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = "snap-47dcb1ff"
+        volume_type           = "standard"
+        volume_size           = 1000
+        delete_on_termination = false
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 2000
+        delete_on_termination = false
+    }
+
+    tags {
+        "Taxable" = "Exempt"
+        "Environment" = "Greenplum-PROD"
+        "Name" = "etl-seg1.prod.segmint.net"
+    }
+}
+
+resource "aws_instance" "snq-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.223"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "snq-01.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "dns-07-segmint-net" {
+    ami                         = "ami-bf5021d6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m1.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-19693f5f"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.100.41"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sda"
+        snapshot_id           = "snap-26db8d78"
+        volume_type           = "standard"
+        volume_size           = 8
+        delete_on_termination = false
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "dns-07.segmint.net"
+    }
+}
+
+resource "aws_instance" "ads-01-prod-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.small"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-51725e39"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.104.190"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ads-01.prod.segmint.net"
+        "Environment" = "Prod"
+    }
+}
+
+resource "aws_instance" "sol-02-dev-segmint-net" {
+    ami                         = "ami-3db11956"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.micro"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-b5f32c9e"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.10.241"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = "snap-5f6bb0cd"
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "sol-02.dev.segmint.net"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "rancher_server" {
+    ami                         = "ami-b44436a3"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.181"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "rancher_server"
+    }
+}
+
+resource "aws_instance" "ldp-02-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.medium"
+    monitoring                  = false
+    key_name                    = "foreman-2580ade02-2419-497a-95ca-393e8cba4301"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.205"
+    source_dest_check           = true
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    tags {
+        "Environment" = "Admin"
+        "Name" = "ldp-02.it.segmint.net"
+    }
+}
+
+resource "aws_instance" "dmz-04-stage-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1b"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-d3182ea7"
+    vpc_security_group_ids      = ["sg-55ecf639"]
+    associate_public_ip_address = false
+    private_ip                  = "172.16.15.226"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "dmz-04.stage.segmint.net"
+        "Environment" = "Stage"
+    }
+}
+
+resource "aws_instance" "foreman-dev-segmint-net" {
+    ami                         = "ami-13cbd479"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "m3.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.253"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "foreman.dev.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "aut-01-it-segmint-net" {
+    ami                         = "ami-3d787d57"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "segmint"
+    subnet_id                   = "subnet-2b1e9272"
+    vpc_security_group_ids      = ["sg-82b48ae6"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.101.65"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "gp2"
+        volume_size           = 120
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "aut-01.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "ops-01-it-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1c"
+    ebs_optimized               = false
+    instance_type               = "t2.large"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-5e7fc507"
+    vpc_security_group_ids      = ["sg-91be2bf5"]
+    associate_public_ip_address = false
+    private_ip                  = "172.21.100.64"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "ops-01.it.segmint.net"
+        "Environment" = "Admin"
+    }
+}
+
+resource "aws_instance" "solr-03-dev-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-9df32cb6"
+    vpc_security_group_ids      = ["sg-c4b811a0"]
+    associate_public_ip_address = false
+    private_ip                  = "172.19.40.111"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdf"
+        snapshot_id           = ""
+        volume_type           = "gp2"
+        volume_size           = 100
+        delete_on_termination = false
+    }
+
+    tags {
+        "Name" = "solr-03.dev.segmint.net"
+        "Environment" = "Dev"
+    }
+}
+
+resource "aws_instance" "app-09-int-segmint-net" {
+    ami                         = "ami-9e763ff6"
+    availability_zone           = "us-east-1e"
+    ebs_optimized               = false
+    instance_type               = "t2.medium"
+    monitoring                  = false
+    key_name                    = "foreman-509cb3bb5-6f95-4b69-a7b8-b04859addfe1"
+    subnet_id                   = "subnet-c75b76ec"
+    vpc_security_group_ids      = ["sg-5857a93e"]
+    associate_public_ip_address = false
+    private_ip                  = "172.17.30.167"
+    source_dest_check           = true
+
+    root_block_device {
+        volume_type           = "standard"
+        volume_size           = 50
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name           = "/dev/sdb"
+        snapshot_id           = ""
+        volume_type           = "standard"
+        volume_size           = 100
+        delete_on_termination = true
+    }
+
+    tags {
+        "Name" = "app-09.int.segmint.net"
+        "Environment" = "Integration"
+    }
+}
+

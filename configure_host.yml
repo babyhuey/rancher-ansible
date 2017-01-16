@@ -2,7 +2,7 @@
 #first time ./ansible-playbook_wrapper configure_host.yml -u yourgenericaccount -Kk
 #second time ./ansible-playbook_wrapper configure_host.yml -K
 
-- hosts: rancher-masters
+- hosts: all
   gather_facts: no
   pre_tasks:
   - name: Install epel
@@ -13,7 +13,7 @@
 #  roles:
 #  - configure-ops-accounts
 
-- hosts: rancher-masters
+- hosts: all
   gather_facts: no
   roles:
   - configure-hostname

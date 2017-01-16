@@ -1,0 +1,8 @@
+rancher_server_instance_type = "t2.medium"
+rancher_server_ami = "ami-b44436a3"
+admin_private_id = "subnet-5e7fc507"
+private_route53_id = "Z134XQ11D473C4"
+admin_private_subnets = "172.21.100.0/24"
+admin_cidr = "172.21.0.0/16"
+dev_cidr = "172.19.10.0/24"
+admin_vpc = "vpc-46571e23"

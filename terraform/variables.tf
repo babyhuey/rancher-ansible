@@ -1,0 +1,10 @@
+variable private_route53_id {}
+variable rancher_server_instance_type {}
+variable rancher_server_ami {}
+variable admin_private_subnets {}
+variable access_key {}
+variable secret_key {}
+variable admin_private_id {}
+variable admin_cidr {}
+variable dev_cidr {}
+variable admin_vpc {}
